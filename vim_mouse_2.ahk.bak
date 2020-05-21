@@ -54,7 +54,7 @@ MoveCursor() {
   }
   FAST_MODE := GetKeyState("d", "P")
   if (FAST_MODE) {
-    FORCE := 8
+    FORCE := 3.6
   }
   if (FAST_MODE == false && SLOW_MODE == false) {
     FORCE := 1.8
