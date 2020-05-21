@@ -48,13 +48,13 @@ MoveCursor() {
   DOWN := 0
   UP := 0
   RIGHT := 0
-  SLOW_MODE := GetKeyState("s", "P")
+  SLOW_MODE := GetKeyState("d", "P")
   if (SLOW_MODE) {
     FORCE := 0.2
   }
-  FAST_MODE := GetKeyState("d", "P")
+  FAST_MODE := GetKeyState("a", "P")
   if (FAST_MODE) {
-    FORCE := 3.6
+    FORCE := 8
   }
   if (FAST_MODE == false && SLOW_MODE == false) {
     FORCE := 1.8
@@ -99,7 +99,7 @@ MoveCursor() {
 
 EnterNormalMode(quick:=false) {
   ;MsgBox, "Welcome to Normal Mode"
-  NORMAL_QUICK := quick
+  NORMAL_QUICK := false
 
   msg := "NORMAL"
   If (WASD == false) {
@@ -305,7 +305,8 @@ ScrollDownMore() {
 #If (NORMAL_MODE)
   *i:: EnterInsertMode()
 #If (NORMAL_MODE == false)
-  Insert:: EnterNormalMode()
+  ;Insert:: EnterNormalMode()
+  ^!m:: EnterNormalMode()
 <#<!n:: EnterNormalMode()
 <#<!i:: EnterInsertMode()
 
@@ -372,8 +373,8 @@ ScrollDownMore() {
   +[:: ScrollUpMore()
   End:: Click, Up
 #If (NORMAL_MODE && NORMAL_QUICK == false)
-  Capslock:: EnterInsertMode(true)
-  +Capslock:: EnterInsertMode()
+  ; Capslock:: EnterInsertMode(true)
+  ; +Capslock:: EnterInsertMode()
 ; Addl Vim hotkeys that conflict with WASD mode
 #If (NORMAL_MODE && WASD == false)
   ;<#<!r:: EnterWASDMode()
@@ -396,8 +397,8 @@ ScrollDownMore() {
 #If (INSERT_MODE)
   ; Normal (Quick) Mode
 #If (INSERT_MODE && INSERT_QUICK == false)
-  Capslock:: EnterNormalMode(true)
-  +Capslock:: EnterNormalMode()
+  ; Capslock:: EnterNormalMode(true)
+  ; +Capslock:: EnterNormalMode()
 #If (INSERT_MODE && INSERT_QUICK)
   ~Enter:: EnterNormalMode()
   ; Copy and return to Normal Mode
