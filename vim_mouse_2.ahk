@@ -12,7 +12,7 @@ global INSERT_MODE := false
 global INSERT_QUICK := false
 global NORMAL_MODE := false
 global NORMAL_QUICK := false
-global WASD := true
+global WASD := false
 
 ; Drag takes care of this now
 ;global MAX_VELOCITY := 72
@@ -48,6 +48,13 @@ MoveCursor() {
   DOWN := 0
   UP := 0
   RIGHT := 0
+  SLOW_MODE := GetKeyState("s", "P")
+  if (SLOW_MODE) {
+    FORCE := 0.2
+  }
+  if (SLOW_MODE == false) {
+    FORCE := 1.8
+  }
   
   LEFT := LEFT - GetKeyState("h", "P")
   DOWN := DOWN + GetKeyState("j", "P")
@@ -291,8 +298,11 @@ ScrollDownMore() {
 
 
 ; "FINAL" MODE SWITCH BINDINGS
-Home:: EnterNormalMode()
-Insert:: EnterInsertMode()
+; Delete:: EnterNormalMode()
+#If (NORMAL_MODE)
+  *i:: EnterInsertMode()
+#If (NORMAL_MODE == false)
+  Insert:: EnterNormalMode()
 <#<!n:: EnterNormalMode()
 <#<!i:: EnterInsertMode()
 
@@ -332,12 +342,12 @@ Insert:: EnterInsertMode()
   +K:: JumpTopEdge()
   +L:: JumpRightEdge()
   ; commands
-  *i:: MouseLeft()
-  *o:: MouseRight()
-  *p:: MouseMiddle()
+  *v:: MouseLeft()
+  *n:: MouseRight()
+  *b:: MouseMiddle()
   ; do not conflict with y as in "scroll up"
   +Y:: Yank()
-  v:: Drag()
+  +V:: Drag()
   z:: RightDrag()
   +M:: JumpMiddle()
   +,:: JumpMiddle2()
@@ -347,8 +357,8 @@ Insert:: EnterInsertMode()
   m:: JumpMiddle()
   ,:: JumpMiddle2()
   .:: JumpMiddle3()
-  n:: MouseForward()
-  b:: MouseBack()
+  ; n:: MouseForward()
+  ; b:: MouseBack()
   ; allow for modifier keys (or more importantly a lack of them) by lifting ctrl requirement for these hotkeys
   u:: ScrollUpMore()
   *0:: ScrollDown()
@@ -363,7 +373,7 @@ Insert:: EnterInsertMode()
   +Capslock:: EnterInsertMode()
 ; Addl Vim hotkeys that conflict with WASD mode
 #If (NORMAL_MODE && WASD == false)
-  <#<!r:: EnterWASDMode()
+  ;<#<!r:: EnterWASDMode()
   e:: ScrollDown()
   y:: ScrollUp()
   d:: ScrollDownMore()
@@ -392,7 +402,7 @@ Insert:: EnterInsertMode()
   Escape:: EnterNormalMode()
   Capslock:: EnterNormalMode()
 #If (NORMAL_MODE && WASD)
-  <#<!r:: ExitWASDMode()
+  ;<#<!r:: ExitWASDMode()
   ; Intercept movement keys
   w:: Return
   a:: Return
