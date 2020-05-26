@@ -48,7 +48,7 @@ MoveCursor() {
   DOWN := 0
   UP := 0
   RIGHT := 0
-  SLOW_MODE := GetKeyState("d", "P")
+  SLOW_MODE := GetKeyState("s", "P")
   if (SLOW_MODE) {
     FORCE := 0.2
   }

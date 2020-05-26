@@ -300,7 +300,7 @@ ScrollDownMore() {
   *i:: EnterInsertMode()
 #If (NORMAL_MODE == false)
   ;Insert:: EnterNormalMode()
-  ^!m:: EnterNormalMode()
+  >!m:: EnterNormalMode()
 <#<!n:: EnterNormalMode()
 <#<!i:: EnterInsertMode()
 
